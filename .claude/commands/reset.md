@@ -20,7 +20,7 @@ If `$ARGUMENTS` is empty or does not contain a recognized scope keyword, ask:
 >
 > - **`profile`** — Clears candidate data from the skill files (profile, behavioral, STAR examples, profile statements, personalized evaluation criteria, search queries). The framework structure, scoring framework, and writing rules are preserved. Use this to re-run `/setup` from scratch.
 >
-> - **`documents`** — Deletes all files you've placed in the `documents/` folder (CV PDFs, LinkedIn export, diplomas, references, project summaries, pasted job postings, past applications). The folder structure and `README.md` are preserved.
+> - **`documents`** — Deletes all files you've placed in the `documents/` folder (CV PDFs, LinkedIn export, diplomas, references, project summaries, pasted job postings, past applications, `/leads` contacts and outreach drafts). The folder structure and `README.md` are preserved.
 >
 > - **`all`** — Both of the above.
 >
@@ -86,7 +86,7 @@ cv/main_example.tex. This scope covers skill files only.
 
 ### If scope includes `documents`:
 
-Use Glob to list all files present in `documents/cv/`, `documents/linkedin/`, `documents/diplomas/`, `documents/references/`, `documents/projects/`, `documents/postings/`, and `documents/applications/`. Present as:
+Use Glob to list all files present in `documents/cv/`, `documents/linkedin/`, `documents/diplomas/`, `documents/references/`, `documents/projects/`, `documents/postings/`, `documents/applications/`, and `documents/leads/`. Present as:
 
 ```
 ## Documents reset will delete:
@@ -111,6 +111,9 @@ documents/postings/
 
 documents/applications/
   - [subfolder/filename] or "(empty)"
+
+documents/leads/
+  - [leads.json / company subfolder] or "(empty)"
 
 documents/README.md — NOT deleted (instructions file)
 ```
@@ -252,6 +255,7 @@ rm -f documents/references/*
 rm -f documents/projects/*
 rm -f documents/postings/*
 rm -rf documents/applications/*/
+rm -rf documents/leads/*
 ```
 
 ---

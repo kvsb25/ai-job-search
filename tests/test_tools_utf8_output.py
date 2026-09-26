@@ -85,6 +85,26 @@ class ToolsWriteUtf8(unittest.TestCase):
         out = json.loads(self.assert_clean_utf8(proc, 0, CJK))
         self.assertEqual([row["key"] for row in out["ranked"]], ["a"])
 
+    def test_leads_candidates_and_save_handle_non_latin_companies(self):
+        ranked = dict(self.entry(CJK, "工程师"), status="ranked", rank_score=80, rank_verdict="Strong Fit")
+        state = self.write_state({"a": ranked})
+        leads = self.tmp / "leads" / "leads.json"
+        proc = run_legacy_stdout([
+            TOOLS / "leads_state.py", "candidates", "--state", state,
+            "--tracker", self.tmp / "none.csv", "--leads", leads,
+        ])
+        out = json.loads(self.assert_clean_utf8(proc, 0, CJK))
+        self.assertEqual(out["eligible"], 1)
+
+        payload = self.tmp / "in.json"
+        payload.write_text(json.dumps([{
+            "company": CJK,
+            "people": [{"name": CYRILLIC, "title": "CTO", "source_url": "https://example.com/team"}],
+        }], ensure_ascii=False), encoding="utf-8")
+        proc = run_legacy_stdout([TOOLS / "leads_state.py", "save", "--input", payload, "--leads", leads])
+        self.assert_clean_utf8(proc, 0, CJK)
+        self.assertIn(CYRILLIC, (leads.parent / out["selected"][0]["slug"] / "outreach.md").read_text(encoding="utf-8"))
+
     def test_job_key_audit_reports_non_latin_entries(self):
         state = self.write_state({f"{CYRILLIC}_Инженер": self.entry(CYRILLIC, "Инженер")})
         proc = run_legacy_stdout([TOOLS / "job_key.py", "--audit", state])

@@ -15,6 +15,16 @@ per-file diff commands.
 
 ### Added
 
+- **`/leads` outreach workflow** (`.claude/commands/leads.md`,
+  `.claude/skills/job-application-assistant/10-outreach.md`, `tools/leads_state.py`) -
+  finds hiring managers, team leads, founders and recruiters at ranked companies
+  from public web pages only, and drafts a cold email, a LinkedIn connection note
+  (200 characters max, enforced on save) and a follow-up DM per contact. Every
+  contact needs a public source URL, pattern-guessed emails are labelled
+  `inferred`, LinkedIn is never fetched, and nothing is sent. Contacts are stored
+  under the gitignored `documents/leads/` with a 6-day follow-up reminder;
+  `.gitignore`, `security_guards.py`, `settings.json` and `/reset` are updated to
+  match.
 - **Real Excel workbook integration tests for the salary converter**
   (`tests/test_convert_salary_excel_integration.py`, `.github/workflows/ci.yml`) -
   generate temporary `.xlsx` files and invoke the documented converter CLI,

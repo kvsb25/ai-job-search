@@ -53,6 +53,8 @@ ALLOWED_PERMISSIONS = {
     "Bash(python3 salary_lookup.py:*)",
     "Bash(python tools/rank_state.py:*)",
     "Bash(python3 tools/rank_state.py:*)",
+    "Bash(python tools/leads_state.py:*)",
+    "Bash(python3 tools/leads_state.py:*)",
     "Bash(python tools/job_key.py:*)",
     "Bash(python3 tools/job_key.py:*)",
     "Bash(python tools/verify_pdf.py:*)",
@@ -90,6 +92,8 @@ REQUIRED_IGNORE_RULES = [
     # Belt-and-braces, not the primary guard: nothing writes here.
     # /interview's prep packs land under documents/applications/**, above.
     "documents/interview/**",
+    # /leads: third-party names, emails and outreach drafts.
+    "documents/leads/**",
     "job_search_tracker.csv",
     "gmail_sync/",
     "reports/",

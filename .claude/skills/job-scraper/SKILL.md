@@ -206,6 +206,9 @@ Both links are for the user to open and browse themselves - never fetch or scrap
 LinkedIn people-search result pages programmatically. Never fabricate contacts or claim a
 specific person was found; these are search links, not results.
 
+For named contacts and ready-to-send drafts at ranked companies, the user can run `/leads`,
+which researches people from public web pages only and never fetches LinkedIn either.
+
 ### Step 4.75: Portal Health Check
 
 Scraper-based portal CLIs rot silently: when a portal changes its markup, the parser usually exits 0 with zero results or with null/garbled fields, and the Step 1c fallback never fires because it only triggers on hard failure. This step catches that from evidence the run already holds.
